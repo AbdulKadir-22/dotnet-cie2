@@ -1,0 +1,63 @@
+﻿@model List<App131.Models.Doctor>
+
+@{
+    ViewData["Title"] = "Doctor Directory";
+    var posts = ViewBag.Posts as List<App131.Models.PostViewModel> ?? new();
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="neo-card neo-card-accent-cyan" style="font-weight: bold;">
+        🚀 @TempData["SuccessMessage"]
+    </div>
+}
+
+<div class="neo-card neo-card-accent-pink">
+    <h2>👋 Welcome, @(ViewBag.PatientNameCookie ?? "Guest")!</h2>
+    <p><b>Session Specialization Filter:</b> @(ViewBag.SelectedSpecialization ?? "None selected")</p>
+    
+    <form method="get" action="/">
+        <label><b>Filter by Specialization:</b></label>
+        <input type="text" name="specialization" class="neo-input" placeholder="e.g. Cardiology, Dermatology..." style="max-width: 300px; display:inline-block; margin-right: 10px;" />
+        <button type="submit" class="neo-btn">Apply Filter</button>
+    </form>
+</div>
+
+<h2 style="font-weight: 900; border-left: 8px solid #111; padding-left: 10px;">AVAILABLE DOCTORS (IMemoryCache Cached)</h2>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+    @foreach (var doctor in Model)
+    {
+        <div class="neo-card">
+            <h3 style="margin-top:0;">@doctor.DoctorName</h3>
+            <span class="badge">@doctor.Specialization</span>
+            <p style="margin-top: 15px;"><b>Experience:</b> @doctor.Experience Years</p>
+            <p><b>Fee:</b> ₹@doctor.ConsultationFee</p>
+            
+            <!-- Query String state management passing DoctorId -->
+            <a href="@Url.Action("Details", "Home", new { id = doctor.DoctorId })" class="neo-btn neo-btn-primary" style="display: block; text-align: center; margin-top: 10px;">
+                View Details & Charges
+            </a>
+        </div>
+    }
+</div>
+
+<h2 style="font-weight: 900; border-left: 8px solid #111; padding-left: 10px; margin-top: 40px;">🌐 EXTERNAL POSTS (Async Web Request)</h2>
+
+<table class="neo-table">
+    <thead>
+        <tr>
+            <th>Post ID</th>
+            <th>Title</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var post in posts)
+        {
+            <tr>
+                <td><b>#@post.Id</b></td>
+                <td>@post.Title</td>
+            </tr>
+        }
+    </tbody>
+</table>

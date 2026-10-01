@@ -1,0 +1,25 @@
+@model App131.Models.Doctor
+
+@{
+    ViewData["Title"] = "Doctor Details";
+    decimal totalCharge = ViewBag.TotalCharge;
+}
+
+<div class="neo-card neo-card-accent-yellow" style="max-width: 600px; margin: 40px auto;">
+    <h2 style="margin-top:0; font-size: 2rem;">@Model.DoctorName</h2>
+    <hr style="border: 2px solid #111;" />
+    
+    <p style="font-size: 1.1rem;"><b>Specialization:</b> @Model.Specialization</p>
+    <p style="font-size: 1.1rem;"><b>Experience:</b> @Model.Experience Years</p>
+    <p style="font-size: 1.1rem;"><b>Base Consultation Fee:</b> ₹@Model.ConsultationFee</p>
+    
+    <div class="neo-card neo-card-accent-cyan" style="margin: 20px 0;">
+        <h3 style="margin:0;">Total Consultation Charge: ₹@totalCharge</h3>
+        <small>(Includes standard ₹100 service charge calculated via Extension Method)</small>
+    </div>
+
+    <!-- Hidden Field & Query String demonstration on booking form trigger -->
+    <a href="@Url.Action("BookAppointment", "Home", new { doctorId = Model.DoctorId })" class="neo-btn neo-btn-success" style="display: block; text-align: center; font-size: 1.2rem;">
+        Book Appointment Now
+    </a>
+</div>

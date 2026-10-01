@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - MedNeoApp</title>
+    <link rel="stylesheet" href="~/css/neobrutalism.css" />
+</head>
+<body>
+    <div class="neo-container">
+        <header class="neo-card neo-card-accent-yellow" style="display: flex; justify-content: space-between; align-items: center;">
+            <h1 style="margin: 0; font-weight: 900; letter-spacing: -1px;">🏥 MED-NEO APPOINTMENTS</h1>
+            <a href="/" class="neo-btn neo-btn-primary">Home</a>
+        </header>
+
+        <main>
+            @RenderBody()
+        </main>
+
+        <footer class="neo-card" style="text-align: center; font-weight: 700; background-color: #e9ecef;">
+            <p>&copy; 2026 - Neo-Brutalist Healthcare System</p>
+        </footer>
+    </div>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

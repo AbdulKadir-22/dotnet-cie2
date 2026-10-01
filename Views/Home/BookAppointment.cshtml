@@ -1,0 +1,32 @@
+@model App131.Models.AppointmentViewModel
+
+@{
+    ViewData["Title"] = "Book Appointment";
+}
+
+<div class="neo-card neo-card-accent-cyan" style="max-width: 500px; margin: 40px auto;">
+    <h2 style="margin-top:0;">📅 BOOK APPOINTMENT</h2>
+    <h3>Doctor: @Model.DoctorName</h3>
+
+    <form asp-action="BookAppointment" method="post">
+        <!-- Hidden Field for State Management (DoctorId) -->
+        <input type="hidden" asp-for="DoctorId" />
+        <input type="hidden" asp-for="DoctorName" />
+
+        <div style="margin-bottom: 15px;">
+            <label><b>Patient Name (Stored in Cookie):</b></label>
+            <input asp-for="PatientName" class="neo-input" placeholder="Enter your full name" />
+            <span asp-validation-for="PatientName" style="color: red; font-weight: bold;"></span>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <label><b>Appointment Date & Time:</b></label>
+            <input asp-for="AppointmentDate" type="datetime-local" class="neo-input" />
+            <span asp-validation-for="AppointmentDate" style="color: red; font-weight: bold;"></span>
+        </div>
+
+        <button type="submit" class="neo-btn neo-btn-success" style="width: 100%; font-size: 1.1rem;">
+            Confirm Appointment
+        </button>
+    </form>
+</div>
